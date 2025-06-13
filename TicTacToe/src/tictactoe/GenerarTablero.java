@@ -56,7 +56,7 @@ public class GenerarTablero extends JPanel {
                 Image imagen = icono.getImage().getScaledInstance(botonOprimido.getWidth(), botonOprimido.getHeight(), Image.SCALE_SMOOTH);
                 botonOprimido.setIcon(new ImageIcon(imagen));
                     System.out.println("B");
-                    turno = true;
+                    turno = true;a
                 }
                 
             }
