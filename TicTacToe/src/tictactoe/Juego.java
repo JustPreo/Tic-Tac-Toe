@@ -17,7 +17,7 @@ public class Juego extends javax.swing.JFrame {
      */
     public Juego() {
         initComponents();
-        
+        this.setResizable(false);
         GenerarTablero generar = new GenerarTablero(this); 
         generar.setBounds(0, 0, this.getWidth(), this.getHeight());
         generar.setOpaque(false);

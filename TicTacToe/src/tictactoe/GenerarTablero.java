@@ -57,6 +57,11 @@ public class GenerarTablero extends JPanel {
                     juego.dispose();
                     System.exit(0);
                     }
+                    else if (positions.Ganador()==2)
+                    {
+                    juego.dispose();
+                    System.exit(0);
+                    }
                     else 
                     {
                         System.out.println("Womp Womp");
