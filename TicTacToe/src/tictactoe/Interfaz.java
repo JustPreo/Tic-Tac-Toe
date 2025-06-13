@@ -21,18 +21,7 @@ public class Interfaz extends javax.swing.JFrame {
     private int TotalUsuarios;
     private final int MAX_USUARIOS = 20;
     
-    //Componentes
-    private JPanel PanelPrincipal;
-    private CardLayout cardLayout;
-    private JPanel PanelLogin;
-    private JPanel PanelBienvenido;
-    private JPanel PanelInicio;
-    
-    //Usuario actual
-    private String UsuarioActual;
-    private String NombreActual;
-    
-    private JLabel StatusLabel;
+    private JFrame VentanaAnterior;
 
     /**
      * Creates new form Interfaz
@@ -43,8 +32,6 @@ public class Interfaz extends javax.swing.JFrame {
         
         ConfigurarEventos();
         ConfigurarInterfaz();
-        
-        MostrarUsuariosDisponibles();
     }
     
     private void InicializarBD() {
@@ -139,9 +126,53 @@ public class Interfaz extends javax.swing.JFrame {
             return;
         }
         
-        if (!Usuario.matches("[a-z]")) {
-            
+        if (!Usuario.matches("[a-zA-Z0-9]")) {
+            mostrarMensaje("El usuario solo puede contener letras y numeros", "Error", JOptionPane.ERROR_MESSAGE);
+            UsernameField.requestFocus();
+            return;
         }
+        
+        if (AgregarUsuario(Usuario, Password)) {
+            mostrarMensaje(String.format("Usuario '%s' registrado exitosamente!\n\n%s", Usuario, ObtenerEstadisticas()), "Registro Exitoso", JOptionPane.INFORMATION_MESSAGE);
+            
+            LimpiarCampos();
+            
+            int Opcion = JOptionPane.showConfirmDialog(this, "Desea registrar otro usuario?", "Continuar", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            
+            if (Option == JOptionPane.NO_OPTION) {
+                VolverVentanaAnterior();
+            }
+        } else {
+            if (TotalUsuarios >= MAX_USUARIOS) {
+                mostrarMensaje("No se pueden registrar mas usuarios", "Error", JOptionPane.ERROR_MESSAGE);
+                UsernameField.setText("");
+                UsernameField.requestFocus();
+            } else {
+                mostrarMensaje("El usuario ya existe, elije otro usuario.", "Error", JOptionPane.ERROR_MESSAGE);
+                UsernameField.setText("");
+                UsernameField.requestFocus();
+            }
+        }
+    }
+    
+    private void mostrarMensaje(String Mensaje, String Titulo, int Tipo) {
+        JOptionPane.showMessageDialog(this, Mensaje, Titulo, Tipo);
+    }
+    
+    private void LimpiarCampos() {
+        UsernameField.setText("");
+        PasswordField.setText("");
+        
+        SwingUtilities.invokeLater(() -> {
+            ConfigurarPlaceholder(UsernameField, "Ingrese usuario");
+        });
+    }
+    
+    private void VolverVentanaAnterior() {
+        if (VentanaAnterior != null) {
+            VentanaAnterior.setVisible(true);
+        }
+        this.dispose();
     }
 
     /**
