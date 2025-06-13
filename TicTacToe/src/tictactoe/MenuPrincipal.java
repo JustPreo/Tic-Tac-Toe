@@ -16,6 +16,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     public MenuPrincipal() {
         initComponents();
         this.setResizable(false);
+        Usuario Logged  = null;
     }
 
     /**
