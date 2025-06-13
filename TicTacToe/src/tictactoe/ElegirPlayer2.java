@@ -4,6 +4,8 @@
  */
 package tictactoe;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author user
@@ -90,14 +92,27 @@ public class ElegirPlayer2 extends javax.swing.JFrame {
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
+        Registro registro = new Registro();
+        
+        if (registro.BuscarUsuario(jTextField1.getText()) != null)
+        {
+        JOptionPane.showMessageDialog(null, "Player 2 encontrado");
+        Juego juego = new Juego();
+        juego.setVisible(true);
+        this.dispose();
+        }
+        else 
+        {
+        JOptionPane.showMessageDialog(null, "User no encontrado");
+        }
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         MenuPrincipal menu = new MenuPrincipal();
         this.dispose();
-                                menu.setVisible(true);
-                                System.out.println("EMPATE");
+        menu.setVisible(true);
+        System.out.println("EMPATE");
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**

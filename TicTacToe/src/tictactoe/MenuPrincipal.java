@@ -102,7 +102,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        Interfaz interfaz = new Interfaz();
+        Registro interfaz = new Registro();
         interfaz.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
