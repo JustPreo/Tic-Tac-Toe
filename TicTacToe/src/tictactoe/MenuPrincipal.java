@@ -28,8 +28,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private void initComponents() {
 
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        RegisterButton = new javax.swing.JButton();
+        LoginButton = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -41,17 +41,17 @@ public class MenuPrincipal extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("Crear Usuario");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        RegisterButton.setText("Crear Usuario");
+        RegisterButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                RegisterButtonActionPerformed(evt);
             }
         });
 
-        jButton3.setText("Iniciar Sesion");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        LoginButton.setText("Iniciar Sesion");
+        LoginButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                LoginButtonActionPerformed(evt);
             }
         });
 
@@ -69,8 +69,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(143, 143, 143)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton3)
-                    .addComponent(jButton2)
+                    .addComponent(LoginButton)
+                    .addComponent(RegisterButton)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jButton4)
@@ -82,9 +82,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(90, 90, 90)
-                .addComponent(jButton2)
+                .addComponent(RegisterButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton3)
+                .addComponent(LoginButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -99,16 +99,16 @@ public class MenuPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void RegisterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegisterButtonActionPerformed
         // TODO add your handling code here:
-        Interfaz interfaz = new Interfaz();
-        interfaz.setVisible(true);
+        Registro registro = new Registro();
+        registro.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_RegisterButtonActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void LoginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_LoginButtonActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
@@ -144,6 +144,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new MenuPrincipal().setVisible(true);
             }
@@ -151,9 +152,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton LoginButton;
+    private javax.swing.JButton RegisterButton;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     // End of variables declaration//GEN-END:variables
 }
