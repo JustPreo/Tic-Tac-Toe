@@ -118,7 +118,8 @@ public class Usuario {
         return Nombre.length() >= 2 && Nombre.matches("[a-zA-Z]+");
     }
     
+    @Override
     public String toString() {
-        return String.format("Usuario{Username='%s', }", args)
+        return String.format("Usuario{Username='%s', nombre='%s', puntos='%d'}", Username, Nombre, Puntos);
     }
 }

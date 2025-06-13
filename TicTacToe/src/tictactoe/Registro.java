@@ -12,62 +12,116 @@ package tictactoe;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class Interfaz extends javax.swing.JFrame {
+public class Registro extends javax.swing.JFrame {
     
-    private String[] Usuarios;
-    private String[] Passwords;
-    private String[] Nombres;
-    private int TotalUsuarios;
-    private final int MAX_USUARIOS = 20;
+    private static Usuario[] UsuariosRegistrados;
+    private static int TotalUsuarios;
+    private static final int MAX_USUARIOS = 20;
     
     private JFrame VentanaAnterior;
 
     /**
      * Creates new form Interfaz
      */
-    public Interfaz() {
-        InicializarBD();
+    public Registro() {
+        if (UsuariosRegistrados == null) {
+            InicializarBD();
+        }
+       
         initComponents();
         
         ConfigurarEventos();
         ConfigurarInterfaz();
     }
     
-    private void InicializarBD() {
-        Usuarios = new String[MAX_USUARIOS];
-        Passwords = new String[MAX_USUARIOS];
-        Nombres = new String[MAX_USUARIOS];
-        TotalUsuarios = 0;
-    }
-    
-    private void AgregarUsuario(String Usuario, String Password, String Nombre) {
-        if (TotalUsuarios < MAX_USUARIOS) {
-            Usuarios[TotalUsuarios] = Usuario;
-            Passwords[TotalUsuarios] = Password;
-            Nombres[TotalUsuarios] = Nombre;
-            TotalUsuarios++;
+    public Registro(JFrame VentanaAnterior) {
+        this.VentanaAnterior = VentanaAnterior;
+        
+        if (UsuariosRegistrados == null) {
+            InicializarBD();
+            
+            initComponents();
+            ConfigurarEventos();
+            ConfigurarInterfaz();
         }
     }
     
+    private void InicializarBD() {
+        UsuariosRegistrados = new Usuario[MAX_USUARIOS];
+        TotalUsuarios = 0;
+    }
+    
+    private static boolean AgregarUsuario(String Usuario, String Password) {
+        if (TotalUsuarios >= MAX_USUARIOS) {
+            return false;
+        }
+        
+        for (int i = 0; i < TotalUsuarios; i++) {
+            if (UsuariosRegistrados[i].getUsername().equals(Usuario)) {
+                return false;
+            }
+        }
+        
+        Usuario NuevoUsuario = new Usuario(Usuario, Password);
+        UsuariosRegistrados[TotalUsuarios] = NuevoUsuario;
+        TotalUsuarios++;
+        
+        return true;
+    }
+    
+    public static Usuario BuscarUsuario(String Username) {
+        for (int i = 0; i < TotalUsuarios; i++) {
+            if (UsuariosRegistrados[i].getUsername().equals(Username)) {
+                return UsuariosRegistrados[i];
+            }
+        }
+        return null;
+    }
+    
+    public static Usuario ValidarCredenciales(String Username, String Password) {
+        for (int i = 0; i < TotalUsuarios; i++) {
+            if (UsuariosRegistrados[i].ValidarCredenciales(Username, Password)) {
+                return UsuariosRegistrados[i];
+            }
+        }
+        return null;
+    }
+    
+    public static String obtenerEstadisticas() {
+        return String.format("Usuarios registrados: %d/%d", TotalUsuarios, MAX_USUARIOS);
+    }
+    
+    public static Usuario[] obtenerUsuarios() {
+        Usuario[] Usuarios = new Usuario[TotalUsuarios];
+            for (int i = 0; i < TotalUsuarios; i++) {
+                Usuarios[i] = UsuariosRegistrados[i];
+            }
+            return Usuarios;
+    }
+    
+    public static int getTotalUsuarios() {
+        return TotalUsuarios;
+    }
+    
     private void ConfigurarEventos() {
-        RegisterButton.addActionListener(new java.awt.event.ActionListener() {
+        RegisterButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ProcesarLogin();
+                ProcesarRegistro();
             }
         });
         
-        CancelButton.addActionListener(new java.awt.event.ActionListener() {
+        CancelButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                LimpiarCampos();
-                System.exit(0);
+                VolverVentanaAnterior();
             }
         });
         
         UsernameField.addActionListener(e -> PasswordField.requestFocus());
-        PasswordField.addActionListener(e -> ProcesarLogin());
+        PasswordField.addActionListener(e -> ProcesarRegistro());
     }
     
     private void ConfigurarInterfaz() {
@@ -133,20 +187,19 @@ public class Interfaz extends javax.swing.JFrame {
         }
         
         if (AgregarUsuario(Usuario, Password)) {
-            mostrarMensaje(String.format("Usuario '%s' registrado exitosamente!\n\n%s", Usuario, ObtenerEstadisticas()), "Registro Exitoso", JOptionPane.INFORMATION_MESSAGE);
+            mostrarMensaje(String.format("Usuario '%s' registrado exitosamente!\n\n%s", Usuario, obtenerEstadisticas()), "Registro Exitoso", JOptionPane.INFORMATION_MESSAGE);
             
             LimpiarCampos();
             
             int Opcion = JOptionPane.showConfirmDialog(this, "Desea registrar otro usuario?", "Continuar", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
             
-            if (Option == JOptionPane.NO_OPTION) {
+            if (Opcion == JOptionPane.NO_OPTION) {
                 VolverVentanaAnterior();
             }
+            
         } else {
             if (TotalUsuarios >= MAX_USUARIOS) {
                 mostrarMensaje("No se pueden registrar mas usuarios", "Error", JOptionPane.ERROR_MESSAGE);
-                UsernameField.setText("");
-                UsernameField.requestFocus();
             } else {
                 mostrarMensaje("El usuario ya existe, elije otro usuario.", "Error", JOptionPane.ERROR_MESSAGE);
                 UsernameField.setText("");
