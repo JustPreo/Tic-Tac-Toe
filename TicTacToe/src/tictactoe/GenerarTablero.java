@@ -4,8 +4,10 @@
  */
 package tictactoe;
 
+import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
@@ -17,7 +19,7 @@ public class GenerarTablero extends JPanel {
     //Manejo de clicks
     private Juego juego;
     JButton[][] Tablero;
-    
+    boolean turno = true;//Empieza con turno de x
     
     
     
@@ -37,8 +39,13 @@ public class GenerarTablero extends JPanel {
             @Override
             public void mouseClicked(MouseEvent click) {
                 JButton botonOprimido = (JButton) click.getSource();
+                Image ruta;
                 
                 System.out.println("F "+fila + "|columna " + columna);
+                if (turno && botonOprimido.getIcon()==null){
+                    ruta = new ImageIcon(getClass().getResource(rutaImagen)).getImage();
+                botonOprimido.setIcon(null);
+                }
                 
                 
             }
