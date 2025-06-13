@@ -28,7 +28,6 @@ public class Login extends javax.swing.JFrame {
         initComponents();
         configurarEventos();
         configurarInterfaz();
-        mostrarEstadoSistema();
     }
     
     public Login(JFrame VentanaAnterior) {
@@ -36,7 +35,6 @@ public class Login extends javax.swing.JFrame {
         initComponents();
         configurarEventos();
         configurarInterfaz();
-        mostrarEstadoSistema();
     }
     
      private void configurarEventos() {
@@ -55,7 +53,7 @@ public class Login extends javax.swing.JFrame {
         });
         
         LoginField.addActionListener(e -> PasswordField.requestFocus());
-        PasswordField.addActionListener(e -> ProcesarLogin());
+        PasswordField.addActionListener(e -> procesarLogin());
     }
      
     private void configurarInterfaz() {
@@ -66,7 +64,7 @@ public class Login extends javax.swing.JFrame {
         configurarPlaceholder(LoginField, "Usuario");
     }
 
-    configurarPlaceHolder(JTextField Field, String Placeholder) {
+    private void configurarPlaceholder(JTextField Field, String Placeholder) {
         Field.setForeground(Color.GRAY);
         Field.setText(Placeholder);
         
@@ -89,7 +87,7 @@ public class Login extends javax.swing.JFrame {
     }
     
     private void procesarLogin() {
-        String username = UsernameField.getText().trim();
+        String username = LoginField.getText().trim();
         String password = new String(PasswordField.getPassword());
         
         // Limpiar placeholder si existe
@@ -128,10 +126,10 @@ public class Login extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Usar el método POO para validar credenciales
-                Usuario usuarioEncontrado = RegistroIntegrado.validarCredenciales(username, password);
+                Usuario usuarioEncontrado = Registro.ValidarCredenciales(username, password);
                 
                 if (usuarioEncontrado != null) {
-                    usuarioLogueado = usuarioEncontrado;
+                    UsuarioLogueado = usuarioEncontrado;
                     mostrarMensajeEstado("¡Acceso autorizado!", new Color(34, 139, 34));
                     
                     // Esperar un momento antes de mostrar bienvenida
@@ -241,40 +239,6 @@ public class Login extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Login().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton LoginButton;

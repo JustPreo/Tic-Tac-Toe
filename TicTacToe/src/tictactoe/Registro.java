@@ -71,7 +71,7 @@ public class Registro extends javax.swing.JFrame {
         return true;
     }
     
-    public static Usuario BuscarUsuario(String Username) {
+    public  Usuario BuscarUsuario(String Username) {
         for (int i = 0; i < TotalUsuarios; i++) {
             if (UsuariosRegistrados[i].getUsername().equals(Username)) {
                 return UsuariosRegistrados[i];

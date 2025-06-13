@@ -37,31 +37,27 @@ public class Positions {
                 JOptionPane.showMessageDialog(null, "HORIZONTAL");
                 reiniciarBotones();
                 return 1;
-            }
-
-            if (botonesPosiciones[0][i] != 0 && botonesPosiciones[0][i] == botonesPosiciones[1][i] && botonesPosiciones[0][i] == botonesPosiciones[2][i])//Misma columna
+            } else if (botonesPosiciones[0][i] != 0 && botonesPosiciones[0][i] == botonesPosiciones[1][i] && botonesPosiciones[0][i] == botonesPosiciones[2][i])//Misma columna
             {
                 JOptionPane.showMessageDialog(null, "VERTICAL");
                 reiniciarBotones();
                 return 1;
             }
-            
 
         }//For
-        
-        if (botonesPosiciones[0][0] != 0 && botonesPosiciones[0][0] == botonesPosiciones[1][1] && botonesPosiciones[0][0] == botonesPosiciones[2][2]) {//Diagonal 1
-                System.out.println("DIAGONAL");
-                 JOptionPane.showMessageDialog(null, "diagonal");
-                 reiniciarBotones();
-                return 1;
 
-            }
-            if (botonesPosiciones[0][2] != 0 && botonesPosiciones[0][2] == botonesPosiciones[1][1] && botonesPosiciones[0][2] == botonesPosiciones[2][0]) {//Diagonal 2
-                JOptionPane.showMessageDialog(null, "diagonal");
-                System.out.println("DIAGONAL");
-                reiniciarBotones();
-                return 1;
-            }
+        if (botonesPosiciones[0][0] != 0 && botonesPosiciones[0][0] == botonesPosiciones[1][1] && botonesPosiciones[0][0] == botonesPosiciones[2][2]) {//Diagonal 1
+            System.out.println("DIAGONAL");
+            JOptionPane.showMessageDialog(null, "diagonal");
+            reiniciarBotones();
+            return 1;
+
+        } else if (botonesPosiciones[0][2] != 0 && botonesPosiciones[0][2] == botonesPosiciones[1][1] && botonesPosiciones[0][2] == botonesPosiciones[2][0]) {//Diagonal 2
+            JOptionPane.showMessageDialog(null, "diagonal");
+            System.out.println("DIAGONAL");
+            reiniciarBotones();
+            return 1;
+        }
         int contador = 0;
         for (int rows = 0; rows < 3; rows++) {
             for (int cols = 0; cols < 3; cols++) {
@@ -70,15 +66,25 @@ public class Positions {
                 }
             }
         }
-        
-        if (contador == 9)
-        {
+
+        if (contador == 9) {
             JOptionPane.showMessageDialog(null, "EMPATE");
             reiniciarBotones();
-            return 2;
-        }
-        return 0;
+            System.out.println("9");
+            for (java.awt.Window window : java.awt.Window.getWindows()) {
+                if (window instanceof javax.swing.JFrame) {
+                    window.dispose();
+                }
+            }
+            new MenuPrincipal().setVisible(true);
 
+            return 2;
+
+        } else if (contador != 9) {
+            return 0;
+        } else {
+            return 0;
+        }
     }
 
     public void reiniciarBotones() {
