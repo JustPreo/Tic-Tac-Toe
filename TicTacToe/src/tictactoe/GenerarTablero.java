@@ -21,8 +21,7 @@ public class GenerarTablero extends JPanel {
     JButton[][] Tablero;
     boolean turno = true;//Empieza con turno de x
     
-    
-    
+        
     
     public GenerarTablero(Juego juego)
     {
@@ -56,7 +55,7 @@ public class GenerarTablero extends JPanel {
                 Image imagen = icono.getImage().getScaledInstance(botonOprimido.getWidth(), botonOprimido.getHeight(), Image.SCALE_SMOOTH);
                 botonOprimido.setIcon(new ImageIcon(imagen));
                     System.out.println("B");
-                    turno = true;a
+                    turno = true;
                 }
                 
             }
