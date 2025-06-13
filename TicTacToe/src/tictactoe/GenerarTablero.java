@@ -43,10 +43,21 @@ public class GenerarTablero extends JPanel {
                 
                 System.out.println("F "+fila + "|columna " + columna);
                 if (turno && botonOprimido.getIcon()==null){
-                    ruta = new ImageIcon(getClass().getResource(rutaImagen)).getImage();
-                botonOprimido.setIcon(null);
+                    
+                ImageIcon icono = new ImageIcon(getClass().getResource("/tictactoe/R.png"));
+                Image imagen = icono.getImage().getScaledInstance(botonOprimido.getWidth(), botonOprimido.getHeight(), Image.SCALE_SMOOTH);
+                botonOprimido.setIcon(new ImageIcon(imagen));
+                    System.out.println("A");
+                    turno = false;
                 }
-                
+                else if (!turno && botonOprimido.getIcon()==null)
+                {
+                ImageIcon icono = new ImageIcon(getClass().getResource("/tictactoe/R.png"));
+                Image imagen = icono.getImage().getScaledInstance(botonOprimido.getWidth(), botonOprimido.getHeight(), Image.SCALE_SMOOTH);
+                botonOprimido.setIcon(new ImageIcon(imagen));
+                    System.out.println("B");
+                    turno = true;
+                }
                 
             }
         });
