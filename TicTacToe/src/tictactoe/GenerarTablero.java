@@ -59,6 +59,7 @@ public class GenerarTablero extends JPanel {
                     {
                     MenuPrincipal menu = new MenuPrincipal();
                     menu.setVisible(true);
+                        System.out.println("B");
                     juego.dispose();
                     
                     }
@@ -66,9 +67,11 @@ public class GenerarTablero extends JPanel {
                     {
                     MenuPrincipal menu = new MenuPrincipal();
                     menu.setVisible(true);
+                        System.out.println("EMPATE");
                     juego.dispose();
+                    
                     }
-                    else 
+                    else if (positions.Ganador()==0)
                     {
                         System.out.println("Womp Womp");
                     }

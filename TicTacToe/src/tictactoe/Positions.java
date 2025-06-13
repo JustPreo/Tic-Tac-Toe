@@ -45,7 +45,11 @@ public class Positions {
                 reiniciarBotones();
                 return 1;
             }
-            if (botonesPosiciones[0][0] != 0 && botonesPosiciones[0][0] == botonesPosiciones[1][1] && botonesPosiciones[0][0] == botonesPosiciones[2][2]) {//Diagonal 1
+            
+
+        }//For
+        
+        if (botonesPosiciones[0][0] != 0 && botonesPosiciones[0][0] == botonesPosiciones[1][1] && botonesPosiciones[0][0] == botonesPosiciones[2][2]) {//Diagonal 1
                 System.out.println("DIAGONAL");
                  JOptionPane.showMessageDialog(null, "diagonal");
                  reiniciarBotones();
@@ -57,10 +61,7 @@ public class Positions {
                 System.out.println("DIAGONAL");
                 reiniciarBotones();
                 return 1;
-
             }
-
-        }//For
         int contador = 0;
         for (int rows = 0; rows < 3; rows++) {
             for (int cols = 0; cols < 3; cols++) {
