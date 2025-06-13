@@ -74,7 +74,7 @@ public class Positions {
         {
             JOptionPane.showMessageDialog(null, "EMPATE");
             reiniciarBotones();
-        return 2;
+            return 2;
         }
         return 0;
 

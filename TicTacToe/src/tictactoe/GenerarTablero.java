@@ -9,6 +9,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -41,6 +42,8 @@ public class GenerarTablero extends JPanel {
                 JButton botonOprimido = (JButton) click.getSource();
                 Image ruta;
                 
+                
+                
                 System.out.println("F "+fila + "|columna " + columna);
                 if (turno && botonOprimido.getIcon()==null){
                     
@@ -54,13 +57,16 @@ public class GenerarTablero extends JPanel {
                     
                     if (positions.Ganador() == 1)
                     {
+                    MenuPrincipal menu = new MenuPrincipal();
+                    menu.setVisible(true);
                     juego.dispose();
-                    System.exit(0);
+                    
                     }
                     else if (positions.Ganador()==2)
                     {
+                    MenuPrincipal menu = new MenuPrincipal();
+                    menu.setVisible(true);
                     juego.dispose();
-                    System.exit(0);
                     }
                     else 
                     {
@@ -80,6 +86,11 @@ public class GenerarTablero extends JPanel {
                     turno = true;
                     juego.getLabel().setText("Turno de X");
                     positions.Ganador();
+                }
+                
+                else if (botonOprimido.getIcon() != null)
+                {
+                JOptionPane.showMessageDialog(null, "Seleccione otro boton");
                 }
                 
             }
