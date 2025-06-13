@@ -8,13 +8,140 @@ package tictactoe;
  *
  * @author user
  */
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+
 public class Interfaz extends javax.swing.JFrame {
+    
+    private String[] Usuarios;
+    private String[] Passwords;
+    private String[] Nombres;
+    private int TotalUsuarios;
+    private final int MAX_USUARIOS = 20;
+    
+    //Componentes
+    private JPanel PanelPrincipal;
+    private CardLayout cardLayout;
+    private JPanel PanelLogin;
+    private JPanel PanelBienvenido;
+    private JPanel PanelInicio;
+    
+    //Usuario actual
+    private String UsuarioActual;
+    private String NombreActual;
+    
+    private JLabel StatusLabel;
 
     /**
      * Creates new form Interfaz
      */
     public Interfaz() {
+        InicializarBD();
         initComponents();
+        
+        ConfigurarEventos();
+        ConfigurarInterfaz();
+        
+        MostrarUsuariosDisponibles();
+    }
+    
+    private void InicializarBD() {
+        Usuarios = new String[MAX_USUARIOS];
+        Passwords = new String[MAX_USUARIOS];
+        Nombres = new String[MAX_USUARIOS];
+        TotalUsuarios = 0;
+    }
+    
+    private void AgregarUsuario(String Usuario, String Password, String Nombre) {
+        if (TotalUsuarios < MAX_USUARIOS) {
+            Usuarios[TotalUsuarios] = Usuario;
+            Passwords[TotalUsuarios] = Password;
+            Nombres[TotalUsuarios] = Nombre;
+            TotalUsuarios++;
+        }
+    }
+    
+    private void ConfigurarEventos() {
+        RegisterButton.addActionListener(new java.awt.event.ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ProcesarLogin();
+            }
+        });
+        
+        CancelButton.addActionListener(new java.awt.event.ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                LimpiarCampos();
+                System.exit(0);
+            }
+        });
+        
+        UsernameField.addActionListener(e -> PasswordField.requestFocus());
+        PasswordField.addActionListener(e -> ProcesarLogin());
+    }
+    
+    private void ConfigurarInterfaz() {
+        setTitle("Sistema de Login - TicTacToe");
+        setLocationRelativeTo(null);
+        setResizable(false);
+        
+        ConfigurarPlaceholder(UsernameField, "Ingrese Usuario");
+    }
+    
+    private void ConfigurarPlaceholder(JTextField Field, String Placeholder) {
+        Field.setForeground(Color.GRAY);
+        Field.setText(Placeholder);
+        
+        Field.addFocusListener(new java.awt.event.FocusAdapter() {
+            @Override
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                if (Field.getText().equals(Placeholder)) {
+                    Field.setText("");
+                    Field.setForeground(Color.BLACK);
+                }
+            } 
+            @Override
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                if (Field.getText().isEmpty()) {
+                    Field.setForeground(Color.GRAY);
+                    Field.setText(Placeholder);
+                }
+            }
+        });
+    }
+    
+    private void ProcesarRegistro() {
+        String Usuario = UsernameField.getText().trim();
+        String Password = new String(PasswordField.getPassword());
+        
+        if (Usuario.equals("Ingrese usuario")) {
+            Usuario = "";
+        }
+        
+        if (Usuario.isEmpty() || Password.isEmpty()) {
+            mostrarMensaje("Por favor complete todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        if (Usuario.length() < 3) {
+            mostrarMensaje("El usuario debe tener al menos 3 caracteres", "Error", JOptionPane.ERROR_MESSAGE);
+            UsernameField.requestFocus();
+            return;
+        }
+        
+        if (Password.length() != 5) {
+            mostrarMensaje("La contraseña debe tener exactamente 5 caracteres", "Error", JOptionPane.ERROR_MESSAGE);
+            PasswordField.setText("");
+            PasswordField.requestFocus();
+            return;
+        }
+        
+        if (!Usuario.matches("[a-z]")) {
+            
+        }
     }
 
     /**
@@ -26,57 +153,90 @@ public class Interfaz extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        CancelButton = new javax.swing.JButton();
+        RegisterButton = new javax.swing.JButton();
+        UsernameField = new javax.swing.JTextField();
+        PasswordField = new javax.swing.JPasswordField();
+        TituloLabel = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        CancelButton.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        CancelButton.setText("CANCELAR");
+        CancelButton.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
+
+        RegisterButton.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        RegisterButton.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
+        RegisterButton.setLabel("REGISTRAR");
+
+        PasswordField.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+
+        TituloLabel.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        TituloLabel.setText("REGISTRO DE USUARIO");
+
+        jLabel1.setText("Usuario:");
+
+        jLabel2.setText("Contraseña:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(93, Short.MAX_VALUE)
+                .addComponent(TituloLabel)
+                .addGap(92, 92, 92))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(27, 27, 27)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(PasswordField)
+                            .addComponent(UsernameField, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE))
+                        .addGap(112, 112, 112))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(RegisterButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(CancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(27, 27, 27))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(TituloLabel)
+                .addGap(47, 47, 47)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(UsernameField, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addGap(26, 26, 26)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(PasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(RegisterButton, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
+                    .addComponent(CancelButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(34, 34, 34))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Interfaz.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Interfaz.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Interfaz.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Interfaz.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Interfaz().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton CancelButton;
+    private javax.swing.JPasswordField PasswordField;
+    private javax.swing.JButton RegisterButton;
+    private javax.swing.JLabel TituloLabel;
+    private javax.swing.JTextField UsernameField;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     // End of variables declaration//GEN-END:variables
 }
